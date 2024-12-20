@@ -1,76 +1,34 @@
-import art
-import random
-cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
-computer_choice = []
-user_choice = []
+import resources_object
 
-print("welcome to 21(BlackJack)")
-print(art.logo)
-
-def randomGen():
-   computer_choice.append(random.choice(cards))
-   user_choice.append(random.choice(cards))
-
-randomGen()
-randomGen()
+coin_base = {
+    "quaters":0.25,
+    "nickel":0.05,
+    "dime":0.10,
+    "penny":0.01,
+}
 
 
-def validate_sum():
-  total_computer = sum(computer_choice)
-  total_user = sum(user_choice)
-  return total_computer,total_user
+money  = float(0)
+
+
+def calc_cost(item):
+ print("please enter coins:")
+ quaters = float(input("please enter quaters:"))
+ dimes = float(input("please enter dime:"))
+ nickles = float(input("please enter nickle:"))
+ penny = float(input("please enter penny:"))
  
-def check(total_user,total_computer):
-  if(total_computer == total_user):
-     return "Its a draw"
-  elif(total_computer < 17):
-     computer_choice.append(random.choice(cards))
-  elif(total_user > 21 and total_computer < 21):
-     return "Bust you loose"
-  elif total_user == 21:
-        return "Blackjack! You win!"
-  elif(total_computer > 21 and total_user < 21):
-     return "you win"
-  elif total_computer == 21:
-        return "Computer has Blackjack! You lose."
-  else:
-     return "you loose"
+ return (coin_base["quaters"] * quaters) + (coin_base['dime'] * dimes) + (coin_base["nickel"] * nickles) + (coin_base["penny"] * penny)
 
-while True:
-   total_user,total_computer = validate_sum()
-   print(f"Your cards: {user_choice}, current total: {total_user}")
-   print(f"Computer's first card: {computer_choice[0]}")
-   if total_user >= 21 or total_computer >= 21:
-        break
-   ans = input("Type 'y' to hit or 'n' to hold: ").lower()
-
-   if ans == 'y' :
-
-       user_choice.append(random.choice(cards) ) 
-
-   elif ans == 'n'  :
-
-       while total_computer < 17  :
-
-           computer_choice.append(random.choice(cards)  )
-
-       break  
-
-   else:  
-
-       print("Invalid input. Please type 'y' or 'n'.")
 
     
 
-total_user, total_computer = validate_sum()
+while True:
+    user_selection =  input("what would you like? (espresso/latte/cappuccino): ").lower()
+    if(user_selection == 'report'):
+        print(f"water:{resources_object.resources['water']}ml\nmilk:{resources_object.resources['milk']}ml\ncoffee:{resources_object.resources['coffee']}gm")
+    elif(user_selection == 'espresso' or user_selection == 'latte' or user_selection == 'cappuccino' ):
+       ans = calc_cost(item=user_selection)
+       print(ans)
 
-print(f"Your final hand: {user_choice}, total: {total_user}")
 
-print(f"Computer's final hand: {computer_choice}, total: {total_computer}")
-
-
-# Determine the winner
-
-result = check(total_user=total_user, total_computer=total_computer)
-
-print(result)
