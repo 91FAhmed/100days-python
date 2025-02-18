@@ -45,7 +45,7 @@ while game_is_on:
         Game = GameOver()
 
     # Body parts collision
-    for parts in snake.body_parts[1:]:
+    for parts in snake.body_parts[2:]:
         if snake.head.distance(parts) < 10:
             game_is_on = False
             GameOver()
