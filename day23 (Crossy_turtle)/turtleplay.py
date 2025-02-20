@@ -1,4 +1,6 @@
 from turtle import Turtle
+from scoreboard import ScoreBoard
+from blocks import Blocks
 
 
 class TurtlePlayer(Turtle):
@@ -12,3 +14,9 @@ class TurtlePlayer(Turtle):
 
     def move_up(self):
         self.forward(10)
+
+    def detect_win(self):
+        if self.ycor() >= 295:
+            ScoreBoard.update_score()
+            Blocks.increase_speed()
+            self.goto(0, -280)
